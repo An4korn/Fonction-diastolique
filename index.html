@@ -31,13 +31,14 @@ input:disabled{opacity:.45}
 :root,:root[data-theme="light"],:root[data-theme="dark"]{color-scheme:dark;--bg:#12161c;--card:#1b222b;--tx:#e8ecf1;--mut:#9aa6b5;--bd:#2f3946;--ac:#7aa2f7;--ok:#4cc38a;--warn:#f0b429;--bad:#ff7b7b;--okb:#183326;--wb:#3a2f12;--bb:#3a1f1f}
 .vb .v{color:#12161c}
 </style></head><body><main>
-<div class="vb" role="note"><span class="v">V2.5</span><span><b>Version de référence du 25/11/2026</b> · Auteur : Thomas Charlier</span></div>
+<div class="vb" role="note"><span class="v">V2.6</span><span><b>Version de référence du 25/11/2026</b> · Auteur : Thomas Charlier</span></div>
 <h1>Fonction diastolique du VG</h1>
 <p class="sub">Sélecteur d’algorithmes selon le contexte (ASE/EACVI – ASE – BSE)</p>
 
 <div class="card"><h2>1. Contexte du patient</h2>
 <div class="g" id="ctx"></div>
 <div class="hint">Modificateurs :</div><div class="g" id="mod"></div>
+<div class="hint">Chirurgie / post-interventionnel :</div><div class="g" id="surg"></div>
 <div id="warns"></div></div>
 
 <div class="card"><h2>2. Algorithme</h2>
@@ -51,7 +52,7 @@ input:disabled{opacity:.45}
 <div class="card" id="res"><div class="hint">Saisissez les données.</div></div>
 <button onclick="reset()">Réinitialiser</button>
 <p class="disc">Aide à l’interprétation à confronter au contexte clinique ; elle ne remplace pas le jugement du médecin.</p>
-<p class="disc" style="text-align:center">Créé par Thomas Charlier · Version V2.5 · 25/11/2026</p>
+<p class="disc" style="text-align:center">Créé par Thomas Charlier · Version V2.6 · 25/11/2026</p>
 </main>
 <script>
 const $=i=>document.getElementById(i),v=i=>{if(i==="tr"&&$("itna")&&$("itna").checked)return 2.7;const el=$(i),x=(el.dataset.ex!==undefined?el.dataset.ex:el.value).trim().replace(",",".");return x===""||isNaN(+x)?null:+x},ck=i=>$(i).checked;
@@ -65,8 +66,12 @@ const ALG={ase:"ASE – général (indépendant de la FEVG)",htx:"Greffe cardiaq
 const CTX=[["fa","Fibrillation atriale"],["htx","Greffe cardiaque"],["lvad","LVAD"],["htp","Hypertension pulmonaire"],["mac","MAC modérée/sévère"],["ms","Sténose mitrale"],["mr","Insuffisance mitrale significative"],["hcm","Cardiomyopathie hypertrophique"]];
 const MOD=[["fevgalt","FEVG altérée (utile pour l’IM)"],["bbg","BBG / stimulation VD / CRT"],["bav","Bloc AV 1er degré"],["tachy","Tachycardie sinusale"]];
 const WARN={bbg:"BBG / stimulation / CRT : e’ septal et E/e’ moins fiables (E/e’ latéral plus utile) ; interpréter avec LAVi, vitesse IT, etc.",bav:"Bloc AV 1er degré : variables valides seulement sans fusion des ondes E et A ; sinon, la vitesse IT reste utilisable.",tachy:"Tachycardie sinusale : IVRT ≤ 70 ms (≈ 80 %), fraction systolique VP ≤ 40 % (≈ 90 %), E/e’ moyen > 14 (spécifique, peu sensible) ; en cas de fusion E–A, utiliser la pause post-extrasystolique."};
+const SURG=[["pop","Postopératoire immédiat (réanimation, J0–J5)"],["chm","Chirurgie mitrale ou TEER (MitraClip, PASCAL)"],["tav","TAVI / remplacement valvulaire aortique chirurgical"],["pac","Pontages (PAC)"]];
+const SWARN={pop:"Postopératoire immédiat (réanimation) : l’objectif est d’estimer les pressions de remplissage, et non de grader la dysfonction diastolique. Après circulation extracorporelle, le mouvement paradoxal du septum abaisse artificiellement l’e’ septal : privilégier l’e’ latéral et E/e’ latéral. Un flux veineux pulmonaire à prédominance diastolique (S/D < 1) est un marqueur utile.",chm:"Chirurgie mitrale ou TEER : les algorithmes standard ne sont pas validés (anneau, prothèse ou clip : onde E accélérée, e’ abaissée, E/e’ faussé). Estimer les pressions de remplissage avec des marqueurs indirects : vitesse IT (> 2,8 m/s), flux veineux pulmonaire (inversion S/D), IVRT raccourci, dilatation des cavités droites.",tav:"TAVI / remplacement valvulaire aortique : l’anneau mitral étant en principe intact, les critères standard restent applicables (en cas de calcifications annulaires mitrales importantes, cocher MAC).",pac:"Pontages : algorithmes standard applicables à distance, après extubation et stabilisation. L’e’ septal peut rester abaissé après chirurgie cardiaque : interpréter avec prudence, E/e’ latéral plus fiable."};
+const SRES={pop:"Postopératoire immédiat : estimer les pressions de remplissage plutôt que grader ; e’ septal peu fiable.",chm:"Chirurgie mitrale / TEER : algorithme standard non validé, interpréter avec prudence et s’appuyer sur les marqueurs indirects."};
 const F=[["age","Âge (ans)","ase htp"],["es","e’ septal (cm/s)","ase htp htx mr hcm fa"],["el","e’ latéral (cm/s)","ase htp htx mr hcm"],["em","e’ moyen (cm/s)","ase htp htx mr hcm"],["e","Onde E (cm/s)","htx mr hcm fa htp"],["ees","E/e’ septal","ase fa htx mr hcm"],["eel","E/e’ latéral","ase htp htx mr hcm"],["eem","E/e’ moyen","ase htx mr hcm"],["ea","E/A","ase htp mac"],["dt","TD onde E (ms)","fa"],["tr","Vitesse IT (m/s)","ase fa htx hcm"],["pasp","PAPS (mmHg)","ase fa"],["ivrt","IVRT (ms)","ase mac ms mr"],["sd","VP S/D","ase fa"],["lars","LARS (%)","ase htp fa"],["lavi","LAVi (mL/m²)","ase hcm"],["bmi","IMC (kg/m²)","fa"],["srivr","E/SRivr (cm)","htx"],["apk","Vitesse A mitrale (m/s)","ms"],["rt","IVRT / TE-e’","ms mr"],["ara","Ar – A (ms)","mr hcm"]];
 $("ctx").innerHTML=CTX.map(c=>`<label class="c"><input type="checkbox" id="${c[0]}"> ${c[1]}</label>`).join("");
+$("surg").innerHTML=SURG.map(c=>`<label class="c"><input type="checkbox" id="${c[0]}"> ${c[1]}</label>`).join("");
 $("mod").innerHTML=MOD.map(c=>`<label class="c"><input type="checkbox" id="${c[0]}"> ${c[1]}</label>`).join("");
 $("fields").innerHTML=F.map(f=>`<label data-a="${f[2]}">${f[1]}<input type="text" autocomplete="off" id="${f[0]}" inputmode="decimal"></label>`+(f[0]=="tr"?`<label class="c" data-a="ase fa htx hcm" style="grid-column:1/-1"><input type="checkbox" id="itna"> IT non mesurable, sans signe d’HTP → vitesse IT considérée < 2,8 m/s</label>`:"")).join("");
 function ab(i,a){const x=vu(i);if(x===null||(i==="tr"&&ck("itna")))return null;const g=v("age");
@@ -154,7 +159,7 @@ function upd(){const r=route(),sel=$("alg");
  const cur=sel.value;sel.innerHTML=`<option value="auto">Automatique : ${ALG[r[0]]}</option>`+Object.keys(ALG).map(k=>`<option value="${k}">${ALG[k]}</option>`).join("");sel.value=cur&&[...sel.options].some(o=>o.value==cur)?cur:"auto";
  const a=sel.value=="auto"?r[0]:sel.value;
  $("why").innerHTML=(r.length>1?`Plusieurs situations cochées : ordre de priorité appliqué (greffe, FA, SM, IM, MAC, HTP, CMH). Applicables : `+r.map(k=>`<span class="tag">${ALG[k]}</span>`).join(""):"Algorithme déterminé par le contexte.")+(sel.value!="auto"?" (choix manuel)":"");
- $("warns").innerHTML=MOD.filter(m=>WARN[m[0]]&&ck(m[0])).map(m=>`<div class="w">${WARN[m[0]]}</div>`).join("");
+ $("warns").innerHTML=MOD.filter(m=>WARN[m[0]]&&ck(m[0])).map(m=>`<div class="w">${WARN[m[0]]}</div>`).join("")+SURG.filter(m=>ck(m[0])).map(m=>`<div class="w">${SWARN[m[0]]}</div>`).join("");
  document.querySelectorAll("#fields label").forEach(l=>l.style.display=l.dataset.a.split(" ").includes(a)?"":"none");
  $("fh").innerHTML="Champs requis pour : "+ALG[a]+' — <span class="leg"></span>valeur anormale';
  auto();$("tr").disabled=ck("itna");if(ck("itna"))$("tr").value="";markAb(a);
@@ -162,6 +167,7 @@ function upd(){const r=route(),sel=$("alg");
  if(ck("lvad")){res.className="card warn";res.innerHTML='<div class="big">Algorithme non applicable</div><div class="hint">LVAD : les algorithmes standards ne s’appliquent pas.</div>';return}
  const o=run[a]();
  if(!o){res.className="card";res.innerHTML='<div class="hint">Saisissez les données.</div>';return}
+ ["chm","pop"].forEach(k=>{if(ck(k))o.x=(o.x?o.x+" ":"")+SRES[k]});
  if(ck("itna")&&["ase","fa","htx","hcm"].includes(a))o.st=[...o.st,"IT non mesurable sans signe d’HTP → vitesse IT considérée < 2,8 m/s"];
  res.className="card "+o.cls;
  res.innerHTML=`<div class="hint">${ALG[a]}</div><div class="big">${o.t}</div>`+(o.s?`<div>${o.s}</div>`:"")+(o.x?`<div class="w">${o.x}</div>`:"")+(o.st.length?`<div class="hint" style="margin-top:8px">Cheminement :</div><ol>${o.st.map(s=>`<li>${s}</li>`).join("")}</ol>`:"")}
