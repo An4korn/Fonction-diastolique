@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="fr" data-theme="dark"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA2NCA2NCI+PHJlY3Qgd2lkdGg9IjY0IiBoZWlnaHQ9IjY0IiByeD0iMTQiIGZpbGw9IiMyZjVmYzQiLz48cGF0aCBkPSJNMzIgNTJDMTQgMzggMTAgMjggMTAgMjJhMTEgMTEgMCAwIDEgMjItMyAxMSAxMSAwIDAgMSAyMiAzYzAgNi00IDE2LTIyIDMweiIgZmlsbD0iI2ZmZiIvPjxwYXRoIGQ9Ik0xNCAzMWgxMGw0LTggNiAxNiA0LThoMTIiIGZpbGw9Im5vbmUiIHN0cm9rZT0iI2M2MjgyOCIgc3Ryb2tlLXdpZHRoPSIzLjUiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIvPjwvc3ZnPg==">
+<link rel="apple-touch-icon" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAALQAAAC0CAIAAACyr5FlAAAFXUlEQVR4nO3dS64URxBG4cDyZu7ITJEXY5bmxRgx9exux4OSyi26I7semRl/RJ5PDBAgURl5Kvtxm8uXP/76x4BXfou+AOgiDriIAy7igIs44CIOuIgDLuKAizjgIg64iAMu4oCLOOAiDriIAy7igIs44CIOuIgDLuKAizjgIg64iAMu4oCLOOAiDriIAy7igIs44CIOuIgDLuKAizjgIg64iAMu4oCLOOAiDriIAy7ROP79+8/oS5hKc71fBL9J7eOkvn7/EXglEygvVi6Ol/eQ2tS60F+p1sOKd7pqnrp3pFip0MlxZC5SN9Y1iZapEsepO0ZkdmelW6NEHNfOUoXxHZR0gfFx3HyUDZ9gW+rVBcfR6/mXYCIFlhb5aqXjM3OpJ/lWZWlhJ8egNYcfIZXWFRPH6LshZJT1FhUQx7Rzcto0661oMzuO+Y+gQwdabDm/mPqENOS51bi/tNhyns07OcJfUHS85yqtpWFSHOHT3N0ca5mFHDEjDp2B7i5MtsYqThkeh+BMdweHW2AJ14yNQ3msu8Z8s1//TQPj0Jnsz4+P/effPj+f/8DL+epc/1uD+hgVh85kH8vYvOzDHkasc/HHjehjSBw6w30uY+P1kVr3PrQ+Q9qXV0b7t7CrHAduKhvH27OBw+OtsnHgvppxcCp0UTOOg2iorWAcbHkvBeM4hZIaqsXBZndULQ50VCqOa8cGh42nThzscXd14kB3ReK4eWxw6rxUJI63Sn6NfrQKcby977cy6OOsCnF0wSPLs/RxHDw2cEH6OE5ph8Lh8YvfZ/5l86c/+tgI6WnaWbjWyWFdJ1v+pKkcx4UOyu/3KZXjGGqFjMrG0Tg2eP1yUNk4LjtyJKxwbFjVOIaeDYuUYYPiiPp+j98+P7cfR/7khOuZacTMR50c8/uY8xpV89gYNO2Bb4J9/f7jl39RXe9+fRS1unH34djnHOHfT7jhwlvpjWOjXhk24Qmpch+nCD6gjJ7tjFcrsn30ut1Djo0JU530Ula2j4bHo0Lt2Jgzz3nvc2TsY9MuY/6xMW2SU98EE+zj5tYWLsPmv0Mq2EfDz48PqQeUydMLePs8Vx8Nk4+N+XOL+dqKVB/X9rh8GRb4hTepPsRFzSryq7J5+5h5bAROKf7/lTWNb2p7/InntDLCbx6Jz3OET0GQwkwk4jCBWRw8D+YcG+HT2KjEYTITCaczB6E4TGkuL004NqQmoBWHhU6nvferlWGCcZjejOYQXLViHBb6EeVTv96LYBkmG4fJ9HHw4+x3aJZhIm+CNSi8PzaUbBmmfHJslGd3n/jq1OMw+Qlepr+uBHFYhjmelWJFOeKwJNM8KMta0sRheWbalmgVmeKwVJN9Kdf1J4vDss33UborzxeHJZyy5bzmlHFYtlnnutpd1jgsz8SzXOezxHFYhrnrX2FD7jhMe/rK13ZE+jhMdQ80r+qUCnGY3k6oXc81ReIwpf3QuZKb6sRhGruicA29lIrDovemUhlWLw6L26FiZVjJOCxin+qVYVXjsLm7VbIM0/+A8X1DP6JcNYtN2ZNjN27/apdhK8RhY3axfBm2SBzWey9XKMPWicP67egiZdhScViPfV2nDFstDru3u0uVYQvGYVf3eLUybM047PxOL1iGLRuHndnvNcuwleOwY7u+bBm2eBz2bu9XLsOIw/wCFi/DiGPz3AFlGHHsHmugjA1x/G9rgjJ29T/Pgcs4OeAiDriIAy7igIs44CIOuIgDLuKAizjgIg64iAMu4oCLOOAiDriIAy7igIs44CIOuIgDLuKAizjgIg64iAMu4oCLOOAiDriIAy7igIs44CIOuP4DpQXJj+iDkW4AAAAASUVORK5CYII=">
+<meta name="theme-color" content="#12161c">
+<title>Fonction diastolique – Sélecteur d’algorithmes</title>
+<style>
+:root{--bg:#f6f7f9;--card:#fff;--tx:#1b2430;--mut:#667085;--bd:#d9dee6;--ac:#2f5fc4;--ok:#1a8f4c;--warn:#c98a00;--bad:#c62828;--okb:#e8f6ee;--wb:#fff6e0;--bb:#fdecec;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#12161c;--card:#1b222b;--tx:#e8ecf1;--mut:#9aa6b5;--bd:#2f3946;--ac:#7aa2f7;--ok:#4cc38a;--warn:#f0b429;--bad:#ff7b7b;--okb:#183326;--wb:#3a2f12;--bb:#3a1f1f}}
+:root[data-theme="dark"]{color-scheme:dark;--bg:#12161c;--card:#1b222b;--tx:#e8ecf1;--mut:#9aa6b5;--bd:#2f3946;--ac:#7aa2f7;--ok:#4cc38a;--warn:#f0b429;--bad:#ff7b7b;--okb:#183326;--wb:#3a2f12;--bb:#3a1f1f}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--tx);font:15px/1.5 system-ui,-apple-system,"Segoe UI",sans-serif}
+main{max-width:780px;margin:0 auto;padding:16px}h1{font-size:20px;margin:4px 0 2px}
+.sub{color:var(--mut);font-size:13px;margin:0 0 14px}
+.card{background:var(--card);border:1px solid var(--bd);border-radius:12px;padding:14px;margin-bottom:12px}
+.card h2{font-size:15px;margin:0 0 6px}.hint{color:var(--mut);font-size:12.5px;margin:4px 0}
+.g{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:2px 12px}
+.g2{display:grid;grid-template-columns:repeat(auto-fit,minmax(145px,1fr));gap:10px}
+label{display:block;font-size:13px;color:var(--mut)}.c{display:flex;gap:8px;align-items:center;color:var(--tx);font-size:14px;margin:3px 0}
+input[type=number],select{width:100%;margin-top:3px;padding:8px;border:1px solid var(--bd);border-radius:8px;background:var(--bg);color:var(--tx);font-size:16px}
+.w{background:var(--wb);border:1px solid var(--warn);border-radius:8px;padding:7px 10px;margin:6px 0;font-size:13px}
+.tag{display:inline-block;background:var(--bg);border:1px solid var(--bd);border-radius:20px;padding:1px 10px;font-size:12px;margin:2px 4px 0 0}
+#res{border-width:2px}#res.ok{border-color:var(--ok)}#res.warn{border-color:var(--warn)}#res.bad{border-color:var(--bad)}
+.big{font-size:22px;font-weight:700}ol{margin:6px 0 0;padding-left:20px;font-size:13.5px}
+button{padding:8px 14px;border:1px solid var(--bd);background:var(--card);color:var(--tx);border-radius:8px;cursor:pointer;font-size:14px}
+label.ab{color:var(--bad);font-weight:600}label.ab input{border:2px solid var(--bad);background:var(--bb);color:var(--tx)}
+.leg{display:inline-block;width:10px;height:10px;border:2px solid var(--bad);background:var(--bb);border-radius:3px;vertical-align:-1px;margin-right:4px}
+input:disabled{opacity:.45}
+.disc{font-size:12px;color:var(--mut);margin-top:10px}
+.vb{display:flex;flex-wrap:wrap;gap:4px 12px;align-items:center;background:var(--card);border:1px solid var(--bd);border-left:4px solid var(--ac);border-radius:8px;padding:8px 12px;margin:0 0 12px;font-size:12.5px;color:var(--mut)}.vb b{color:var(--tx)}.vb .v{background:var(--ac);color:#fff;border-radius:20px;padding:1px 10px;font-weight:700;font-size:12px}@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .vb .v{color:#12161c}}:root[data-theme="dark"] .vb .v{color:#12161c}@media print{.vb{border:1px solid #999}}
+</style></head><body><main>
+<div class="vb" role="note"><span class="v">V2</span><span><b>Version de référence du 25/11/2026</b> · Auteur : Thomas Charlier</span></div>
+<h1>Fonction diastolique du VG</h1>
+<p class="sub">Sélecteur d’algorithmes selon le contexte (ASE/EACVI – ASE – BSE)</p>
+
+<div class="card"><h2>1. Contexte du patient</h2>
+<div class="g" id="ctx"></div>
+<div class="hint">Modificateurs :</div><div class="g" id="mod"></div>
+<div id="warns"></div></div>
+
+<div class="card"><h2>2. Algorithme</h2>
+<select id="alg"></select>
+<div class="hint" id="why"></div></div>
+
+<div class="card"><h2>3. Données échocardiographiques</h2>
+<div class="hint" id="fh"></div><div class="g2" id="fields"></div>
+<div class="hint">Seuils d’e’ réduit selon l’âge (tableau 6) ; sans âge, seuils par défaut ≤ 6 / ≤ 7 / ≤ 6,5 cm/s.</div></div>
+
+<div class="card" id="res"><div class="hint">Saisissez les données.</div></div>
+<button onclick="reset()">Réinitialiser</button>
+<p class="disc">Aide à l’interprétation à confronter au contexte clinique ; elle ne remplace pas le jugement du médecin.</p>
+<p class="disc" style="text-align:center">Créé par Thomas Charlier · Version V2 · 25/11/2026</p>
+</main>
+<script>
+const $=i=>document.getElementById(i),v=i=>{if(i==="tr"&&$("itna")&&$("itna").checked)return 2.7;const x=$(i).value;return x===""?null:+x},ck=i=>$(i).checked;
+const cmp=f=>(i,t)=>{const x=v(i);return x===null?null:f(x,t)};
+const lt=cmp((x,t)=>x<t),le=cmp((x,t)=>x<=t),gt=cmp((x,t)=>x>t),ge=cmp((x,t)=>x>=t);
+const any=a=>a.includes(true)?true:a.every(x=>x===null)?null:false;
+const cnt=a=>({p:a.filter(x=>x===true).length,n:a.filter(x=>x===false).length});
+const O=(cls,t,s,st=[],x="")=>({cls,t,s,st,x});
+const ALG={ase:"ASE – général (indépendant de la FEVG)",htx:"Greffe cardiaque (rythme sinusal)",fa:"Fibrillation atriale",ms:"Sténose mitrale",mr:"Insuffisance mitrale",mac:"Calcifications annulaires mitrales (MAC)",htp:"Hypertension pulmonaire",hcm:"Cardiomyopathie hypertrophique"};
+const CTX=[["fa","Fibrillation atriale"],["htx","Greffe cardiaque"],["lvad","LVAD"],["htp","Hypertension pulmonaire"],["mac","MAC modérée/sévère"],["ms","Sténose mitrale"],["mr","Insuffisance mitrale significative"],["hcm","Cardiomyopathie hypertrophique"]];
+const MOD=[["fevgalt","FEVG altérée (utile pour l’IM)"],["bbg","BBG / stimulation VD / CRT"],["bav","Bloc AV 1er degré"],["tachy","Tachycardie sinusale"]];
+const WARN={bbg:"BBG / stimulation / CRT : e’ septal et E/e’ moins fiables (E/e’ latéral plus utile) ; interpréter avec LAVi, vitesse IT, etc.",bav:"Bloc AV 1er degré : variables valides seulement sans fusion des ondes E et A ; sinon, la vitesse IT reste utilisable.",tachy:"Tachycardie sinusale : IVRT ≤ 70 ms (≈ 80 %), fraction systolique VP ≤ 40 % (≈ 90 %), E/e’ moyen > 14 (spécifique, peu sensible) ; en cas de fusion E–A, utiliser la pause post-extrasystolique."};
+const F=[["age","Âge (ans)","ase htp"],["es","e’ septal (cm/s)","ase htp"],["el","e’ latéral (cm/s)","ase htp"],["em","e’ moyen (cm/s)","ase htp"],["ees","E/e’ septal","ase fa"],["eel","E/e’ latéral","ase htp"],["eem","E/e’ moyen","ase htx mr hcm"],["e","Onde E (cm/s)","fa htp"],["ea","E/A","ase htp mac"],["dt","DT onde E (ms)","fa"],["tr","Vitesse IT (m/s)","ase fa htx hcm"],["pasp","PAPS (mmHg)","ase fa"],["ivrt","IVRT (ms)","ase mac ms mr"],["sd","VP S/D","ase fa"],["lars","LARS (%)","ase htp fa"],["lavi","LAVi (mL/m²)","ase hcm"],["bmi","IMC (kg/m²)","fa"],["srivr","E/SRivr (cm)","htx"],["apk","Vitesse A mitrale (m/s)","ms"],["rt","IVRT / TE-e’","ms mr"],["ara","Ar – A (ms)","mr hcm"]];
+$("ctx").innerHTML=CTX.map(c=>`<label class="c"><input type="checkbox" id="${c[0]}"> ${c[1]}</label>`).join("");
+$("mod").innerHTML=MOD.map(c=>`<label class="c"><input type="checkbox" id="${c[0]}"> ${c[1]}</label>`).join("");
+$("fields").innerHTML=F.map(f=>`<label data-a="${f[2]}">${f[1]}<input type="number" step="any" id="${f[0]}" inputmode="decimal"></label>`+(f[0]=="tr"?`<label class="c" data-a="ase fa htx hcm" style="grid-column:1/-1"><input type="checkbox" id="itna"> IT non mesurable, sans signe d’HTP → vitesse IT considérée < 2,8 m/s</label>`:"")).join("");
+function ab(i,a){const x=v(i);if(x===null||(i==="tr"&&ck("itna")))return null;const g=v("age");
+ switch(i){
+ case"es":case"el":case"em":{const k={es:0,el:1,em:2}[i];let t=[6,7,6.5];if(g!==null)t=g<40?[7,10,9]:g<=65?[6,8,7]:[6,7,6.5];return g===null?x<=t[k]:x<t[k]}
+ case"ees":return a=="fa"?x>11:x>=15;
+ case"eel":return a=="htp"?x>13:x>=13;
+ case"eem":return x>14;
+ case"e":return a=="fa"?x>=100:null;
+ case"ea":return a=="mac"?x>1.8:a=="htp"?x>=2:null;
+ case"dt":return x<=160;
+ case"tr":return a=="ase"?x>=2.8:x>2.8;
+ case"pasp":return a=="fa"?x>35:x>=35;
+ case"ivrt":return a=="ase"?x<=70:a=="mac"?x<80:x<60;
+ case"sd":return a=="fa"?x<1:x<=0.67;
+ case"lars":return(a=="ase"||a=="htp")?x<=18:x<18;
+ case"lavi":return x>34;
+ case"bmi":return x>30;
+ case"srivr":return x>200;
+ case"apk":return x>1.5;
+ case"rt":return a=="ms"?x<4.2:x<5.6;
+ case"ara":return x>=30;
+ }return null}
+function markAb(a){document.querySelectorAll("#fields label[data-a]").forEach(l=>{const n=l.querySelector("input[type=number]");if(n)l.classList.toggle("ab",ab(n.id,a)===true)})}
+
+function eRed(){const a=v("age");let t=[6,7,6.5];if(a!==null)t=a<40?[7,10,9]:a<=65?[6,8,7]:[6,7,6.5];
+ const c=(i,h)=>{const x=v(i);return x===null?null:(a===null?x<=h:x<h)};return any([c("es",t[0]),c("el",t[1]),c("em",t[2])])}
+const gl=(ea,st)=>ea===null?O("warn","PAG augmentée","Grade II ou III selon E/A",st,"Renseignez E/A (< 2 : Grade II ; ≥ 2 : Grade III)."):ea<2?O("bad","Grade II","Dysfonction diastolique modérée – PAG augmentée",[...st,"E/A < 2 → Grade II"]):O("bad","Grade III","Dysfonction diastolique sévère – PAG nettement augmentée",[...st,"E/A ≥ 2 → Grade III"]);
+const g1=st=>O("ok","Grade I","Relaxation altérée – PAG normale",[...st,"→ Grade I"],"Si symptomatique : écho d’effort diastolique.");
+const hi=(t,st)=>O("bad",t,"",st), lo=(t,st)=>O("ok",t,"",st), ind=(t,st,x)=>O("warn",t,"",st,x);
+
+const run={
+ase(){const r=[eRed(),any([ge("ees",15),ge("eel",13),ge("eem",14)]),any([ge("tr",2.8),ge("pasp",35)])];
+ const k=r.filter(x=>x!==null).length,n=r.filter(x=>x===true).length,ea=v("ea"),st=[`${n} critère(s) anormal(aux) sur 3`+(k<3?` (${3-k} non évalué(s))`:"")];
+ if(!k)return null;
+ if(n==0&&k==3)return O("ok","Fonction diastolique normale","PAG normale",st);
+ if(n==3)return gl(ea,[...st,"3 critères anormaux → PAG augmentée"]);
+ if(n==0)return O("warn","Données incomplètes","Aucun critère anormal parmi ceux saisis",st,"Complétez les 3 critères pour conclure à une fonction normale.");
+ if(n==1&&r[0]===true){if(ea===null)return O("warn","E/A requis","",st,"Pour e’ réduit seul, E/A (seuil 0,8) détermine la suite.");
+  if(ea<=0.8)return g1([...st,"e’ réduit seul et E/A ≤ 0,8 → PAG normale"]);st.push("e’ réduit seul et E/A > 0,8 → marqueurs de PAG")}
+ else st.push(n==2?"2 critères anormaux → marqueurs de PAG":"1 critère anormal (E/e’ ou IT/PAPS) → marqueurs de PAG");
+ const a=any([le("sd",0.67),le("lars",18),gt("lavi",34),le("ivrt",70)]);
+ if(a===null)return O("warn","Indéterminé","Marqueurs de PAG manquants",st,"Renseignez VP S/D, LARS, LAVi ou IVRT, ou utilisez les paramètres supplémentaires (vitesse PR télédiastolique, onde L, Valsalva…).");
+ return a?gl(ea,[...st,"≥ 1 marqueur positif (S/D ≤ 0,67, LARS ≤ 18 %, LAVi > 34, IVRT ≤ 70) → PAG augmentée"]):g1([...st,"Aucun marqueur positif → PAG normale"])},
+fa(){const c=[ge("e",100),gt("ees",11),any([gt("tr",2.8),gt("pasp",35)]),le("dt",160)],s=cnt(c),st=[`Étape 1 : ${s.p} positif(s), ${s.n} négatif(s)`];
+ if(s.p+s.n==0)return null;
+ if(s.p>=3)return hi("PAG élevée",[...st,"≥ 3 critères positifs"]);
+ if(s.n>=3)return lo("PAG normale",[...st,"≥ 3 critères négatifs"]);
+ const d=cnt([lt("lars",18),lt("sd",1),gt("bmi",30)]);st.push(`Étape 2 (LARS < 18 %, VP S/D < 1, IMC > 30) : ${d.p} positif(s), ${d.n} négatif(s)`);
+ if(d.p>=2)return hi("PAG élevée",st);if(d.p==0&&d.n>=2)return lo("PAG normale",st);
+ return ind("Indéterminée",st,"Marqueurs de l’étape 2 insuffisants ou 1 seul positif. (La BSE utilise LARS < 16 %.)")},
+htx(){const x=v("eem"),s=v("srivr"),t=v("tr"),st=[];if(x===null)return null;
+ if(x<7)return lo("PAG < 15 mmHg",["E/e’ moyen < 7"]);if(x>14)return hi("PAG ≥ 15 mmHg",["E/e’ moyen > 14"]);st.push("E/e’ moyen 7–14");
+ if(s!==null)return s<=200?lo("PAG < 15 mmHg",[...st,"E/SRivr ≤ 200 cm"]):hi("PAG ≥ 15 mmHg",[...st,"E/SRivr > 200 cm"]);
+ if(t===null)return ind("Indéterminée",st,"Renseignez E/SRivr ou la vitesse IT (CW).");
+ return t<=2.8?lo("PAG < 15 mmHg",[...st,"IT ≤ 2,8 m/s"]):hi("PAG ≥ 15 mmHg",[...st,"IT > 2,8 m/s"])},
+htp(){const ea=v("ea"),e=v("e");if(ea===null)return ind("E/A requis","",  "Le rapport E/A est le point d’entrée de l’algorithme.");
+ if(ea<=0.8&&e!==null&&e<=50)return lo("PAG normale",["E/A ≤ 0,8 et E ≤ 50 cm/s (HTP probablement précapillaire)"]);
+ if(ea>=2){const r=eRed();return r===true?hi("PAG élevée",["E/A ≥ 2 et e’ réduit (HTP probablement postcapillaire)"]):r===false?ind("Indéterminée",["E/A ≥ 2 mais e’ non réduit"],"Valide seulement si e’ est réduit."):ind("e’ requis",[],"Renseignez e’ (E/A ≥ 2).")}
+ if(ea<=0.8&&e===null)return ind("Onde E requise","","E/A ≤ 0,8 : la valeur de E (seuil 50 cm/s) est nécessaire.");
+ const st=[ea<=0.8?"E/A ≤ 0,8 et E > 50 cm/s":"E/A entre 0,8 et 2",];const l=v("lars"),h=v("eel");
+ if(l!==null)return l>18?lo("PAG normale",[...st,"LARS > 18 %"]):hi("PAG élevée",[...st,"LARS ≤ 18 %"]);
+ if(h===null)return ind("Indéterminée",st,"Renseignez LARS ou E/e’ latéral.");
+ return h<8?lo("PAG normale",[...st,"LARS absent ; E/e’ latéral < 8"]):h>13?hi("PAG élevée",[...st,"LARS absent ; E/e’ latéral > 13"]):ind("Indéterminée",[...st,"E/e’ latéral entre 8 et 13"])},
+mac(){const ea=v("ea"),i=v("ivrt");if(ea===null)return null;
+ if(ea<0.8)return lo("PAG normale",["E/A < 0,8"]);if(ea>1.8)return hi("PAG élevée",["E/A > 1,8"]);
+ if(i===null)return ind("IVRT requis",["E/A entre 0,8 et 1,8"],"Renseignez l’IVRT (seuil 80 ms).");
+ return i>=80?lo("PAG normale",["E/A 0,8–1,8","IVRT ≥ 80 ms"]):hi("PAG élevée",["E/A 0,8–1,8","IVRT < 80 ms"])},
+ms(){const c=[lt("ivrt",60),gt("apk",1.5),lt("rt",4.2)];return crit(c,"IVRT < 60 ms, A mitral > 1,5 m/s, IVRT/TE-e’ < 4,2")},
+mr(){const c=[lt("ivrt",60),ge("ara",30),lt("rt",5.6),ck("fevgalt")?gt("eem",14):null];return crit(c,"IVRT < 60 ms, Ar–A ≥ 30 ms, IVRT/TE-e’ < 5,6, E/e’ moyen > 14 si FEVG altérée")},
+hcm(){return crit([gt("eem",14),ge("ara",30),gt("tr",2.8),gt("lavi",34)],"E/e’ moyen > 14, Ar–A ≥ 30 ms, IT > 2,8 m/s, LAVi > 34 mL/m²")}};
+function crit(c,txt){const s=cnt(c);if(s.p+s.n==0)return null;const st=[`Critères : ${txt}`,`${s.p} positif(s) sur ${s.p+s.n} évalué(s)`];
+ return s.p>=1?O("bad","Pression de remplissage élevée probable",`${s.p} critère(s) positif(s)`,st,"Le nombre minimal de critères n’est pas précisé dans les diapositives : à confronter au tableau clinique."):O("ok","Pas de critère de pression élevée","Parmi les critères saisis",st)}
+
+function route(){const o=[];["htx","fa","ms","mr","mac","htp","hcm"].forEach(k=>ck(k)&&o.push(k));if(!o.length)o.push("ase");return o}
+function upd(){const r=route(),sel=$("alg");
+ const cur=sel.value;sel.innerHTML=`<option value="auto">Automatique : ${ALG[r[0]]}</option>`+Object.keys(ALG).map(k=>`<option value="${k}">${ALG[k]}</option>`).join("");sel.value=cur&&[...sel.options].some(o=>o.value==cur)?cur:"auto";
+ const a=sel.value=="auto"?r[0]:sel.value;
+ $("why").innerHTML=(r.length>1?`Plusieurs situations cochées : ordre de priorité appliqué (greffe, FA, SM, IM, MAC, HTP, CMH). Applicables : `+r.map(k=>`<span class="tag">${ALG[k]}</span>`).join(""):"Algorithme déterminé par le contexte.")+(sel.value!="auto"?" (choix manuel)":"");
+ $("warns").innerHTML=MOD.filter(m=>WARN[m[0]]&&ck(m[0])).map(m=>`<div class="w">${WARN[m[0]]}</div>`).join("");
+ document.querySelectorAll("#fields label").forEach(l=>l.style.display=l.dataset.a.split(" ").includes(a)?"":"none");
+ $("fh").innerHTML="Champs requis pour : "+ALG[a]+' — <span class="leg"></span>valeur anormale';
+ $("tr").disabled=ck("itna");if(ck("itna"))$("tr").value="";markAb(a);
+ const res=$("res");
+ if(ck("lvad")){res.className="card warn";res.innerHTML='<div class="big">Algorithme non applicable</div><div class="hint">LVAD : les algorithmes standards ne s’appliquent pas.</div>';return}
+ const o=run[a]();
+ if(!o){res.className="card";res.innerHTML='<div class="hint">Saisissez les données.</div>';return}
+ if(ck("itna")&&["ase","fa","htx","hcm"].includes(a))o.st=[...o.st,"IT non mesurable sans signe d’HTP → vitesse IT considérée < 2,8 m/s"];
+ res.className="card "+o.cls;
+ res.innerHTML=`<div class="hint">${ALG[a]}</div><div class="big">${o.t}</div>`+(o.s?`<div>${o.s}</div>`:"")+(o.x?`<div class="w">${o.x}</div>`:"")+(o.st.length?`<div class="hint" style="margin-top:8px">Cheminement :</div><ol>${o.st.map(s=>`<li>${s}</li>`).join("")}</ol>`:"")}
+function reset(){document.querySelectorAll("input").forEach(i=>i.type=="checkbox"?i.checked=false:i.value="");$("alg").value="auto";upd()}
+document.addEventListener("input",upd);$("alg").addEventListener("change",upd);upd();
+</script></body></html>
