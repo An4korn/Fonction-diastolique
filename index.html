@@ -29,7 +29,7 @@ input:disabled{opacity:.45}
 .disc{font-size:12px;color:var(--mut);margin-top:10px}
 .vb{display:flex;flex-wrap:wrap;gap:4px 12px;align-items:center;background:var(--card);border:1px solid var(--bd);border-left:4px solid var(--ac);border-radius:8px;padding:8px 12px;margin:0 0 12px;font-size:12.5px;color:var(--mut)}.vb b{color:var(--tx)}.vb .v{background:var(--ac);color:#fff;border-radius:20px;padding:1px 10px;font-weight:700;font-size:12px}@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .vb .v{color:#12161c}}:root[data-theme="dark"] .vb .v{color:#12161c}@media print{.vb{border:1px solid #999}}
 </style></head><body><main>
-<div class="vb" role="note"><span class="v">V2</span><span><b>Version de référence du 25/11/2026</b> · Auteur : Thomas Charlier</span></div>
+<div class="vb" role="note"><span class="v">V2.1</span><span><b>Version de référence du 25/11/2026</b> · Auteur : Thomas Charlier</span></div>
 <h1>Fonction diastolique du VG</h1>
 <p class="sub">Sélecteur d’algorithmes selon le contexte (ASE/EACVI – ASE – BSE)</p>
 
@@ -44,15 +44,16 @@ input:disabled{opacity:.45}
 
 <div class="card"><h2>3. Données échocardiographiques</h2>
 <div class="hint" id="fh"></div><div class="g2" id="fields"></div>
-<div class="hint">Seuils d’e’ réduit selon l’âge (tableau 6) ; sans âge, seuils par défaut ≤ 6 / ≤ 7 / ≤ 6,5 cm/s.</div></div>
+<div class="hint">e’ moyen = (e’ septal + e’ latéral) / 2 et E/e’ moyen = E / e’ moyen sont calculés automatiquement ; vous pouvez aussi les saisir à la main.</div><div class="hint">Seuils d’e’ réduit selon l’âge (tableau 6) ; sans âge, seuils par défaut ≤ 6 / ≤ 7 / ≤ 6,5 cm/s.</div></div>
 
 <div class="card" id="res"><div class="hint">Saisissez les données.</div></div>
 <button onclick="reset()">Réinitialiser</button>
 <p class="disc">Aide à l’interprétation à confronter au contexte clinique ; elle ne remplace pas le jugement du médecin.</p>
-<p class="disc" style="text-align:center">Créé par Thomas Charlier · Version V2 · 25/11/2026</p>
+<p class="disc" style="text-align:center">Créé par Thomas Charlier · Version V2.1 · 25/11/2026</p>
 </main>
 <script>
-const $=i=>document.getElementById(i),v=i=>{if(i==="tr"&&$("itna")&&$("itna").checked)return 2.7;const x=$(i).value;return x===""?null:+x},ck=i=>$(i).checked;
+const $=i=>document.getElementById(i),v=i=>{if(i==="tr"&&$("itna")&&$("itna").checked)return 2.7;const el=$(i),x=el.dataset.ex!==undefined?el.dataset.ex:el.value;return x===""?null:+x},ck=i=>$(i).checked;
+const vu=i=>i==="em"&&$(i).dataset.auto?null:v(i);
 const cmp=f=>(i,t)=>{const x=v(i);return x===null?null:f(x,t)};
 const lt=cmp((x,t)=>x<t),le=cmp((x,t)=>x<=t),gt=cmp((x,t)=>x>t),ge=cmp((x,t)=>x>=t);
 const any=a=>a.includes(true)?true:a.every(x=>x===null)?null:false;
@@ -62,13 +63,13 @@ const ALG={ase:"ASE – général (indépendant de la FEVG)",htx:"Greffe cardiaq
 const CTX=[["fa","Fibrillation atriale"],["htx","Greffe cardiaque"],["lvad","LVAD"],["htp","Hypertension pulmonaire"],["mac","MAC modérée/sévère"],["ms","Sténose mitrale"],["mr","Insuffisance mitrale significative"],["hcm","Cardiomyopathie hypertrophique"]];
 const MOD=[["fevgalt","FEVG altérée (utile pour l’IM)"],["bbg","BBG / stimulation VD / CRT"],["bav","Bloc AV 1er degré"],["tachy","Tachycardie sinusale"]];
 const WARN={bbg:"BBG / stimulation / CRT : e’ septal et E/e’ moins fiables (E/e’ latéral plus utile) ; interpréter avec LAVi, vitesse IT, etc.",bav:"Bloc AV 1er degré : variables valides seulement sans fusion des ondes E et A ; sinon, la vitesse IT reste utilisable.",tachy:"Tachycardie sinusale : IVRT ≤ 70 ms (≈ 80 %), fraction systolique VP ≤ 40 % (≈ 90 %), E/e’ moyen > 14 (spécifique, peu sensible) ; en cas de fusion E–A, utiliser la pause post-extrasystolique."};
-const F=[["age","Âge (ans)","ase htp"],["es","e’ septal (cm/s)","ase htp"],["el","e’ latéral (cm/s)","ase htp"],["em","e’ moyen (cm/s)","ase htp"],["ees","E/e’ septal","ase fa"],["eel","E/e’ latéral","ase htp"],["eem","E/e’ moyen","ase htx mr hcm"],["e","Onde E (cm/s)","fa htp"],["ea","E/A","ase htp mac"],["dt","DT onde E (ms)","fa"],["tr","Vitesse IT (m/s)","ase fa htx hcm"],["pasp","PAPS (mmHg)","ase fa"],["ivrt","IVRT (ms)","ase mac ms mr"],["sd","VP S/D","ase fa"],["lars","LARS (%)","ase htp fa"],["lavi","LAVi (mL/m²)","ase hcm"],["bmi","IMC (kg/m²)","fa"],["srivr","E/SRivr (cm)","htx"],["apk","Vitesse A mitrale (m/s)","ms"],["rt","IVRT / TE-e’","ms mr"],["ara","Ar – A (ms)","mr hcm"]];
+const F=[["age","Âge (ans)","ase htp"],["es","e’ septal (cm/s)","ase htp htx mr hcm"],["el","e’ latéral (cm/s)","ase htp htx mr hcm"],["em","e’ moyen (cm/s)","ase htp htx mr hcm"],["e","Onde E (cm/s)","ase htx mr hcm fa htp"],["ees","E/e’ septal","ase fa"],["eel","E/e’ latéral","ase htp"],["eem","E/e’ moyen","ase htx mr hcm"],["ea","E/A","ase htp mac"],["dt","DT onde E (ms)","fa"],["tr","Vitesse IT (m/s)","ase fa htx hcm"],["pasp","PAPS (mmHg)","ase fa"],["ivrt","IVRT (ms)","ase mac ms mr"],["sd","VP S/D","ase fa"],["lars","LARS (%)","ase htp fa"],["lavi","LAVi (mL/m²)","ase hcm"],["bmi","IMC (kg/m²)","fa"],["srivr","E/SRivr (cm)","htx"],["apk","Vitesse A mitrale (m/s)","ms"],["rt","IVRT / TE-e’","ms mr"],["ara","Ar – A (ms)","mr hcm"]];
 $("ctx").innerHTML=CTX.map(c=>`<label class="c"><input type="checkbox" id="${c[0]}"> ${c[1]}</label>`).join("");
 $("mod").innerHTML=MOD.map(c=>`<label class="c"><input type="checkbox" id="${c[0]}"> ${c[1]}</label>`).join("");
 $("fields").innerHTML=F.map(f=>`<label data-a="${f[2]}">${f[1]}<input type="number" step="any" id="${f[0]}" inputmode="decimal"></label>`+(f[0]=="tr"?`<label class="c" data-a="ase fa htx hcm" style="grid-column:1/-1"><input type="checkbox" id="itna"> IT non mesurable, sans signe d’HTP → vitesse IT considérée < 2,8 m/s</label>`:"")).join("");
-function ab(i,a){const x=v(i);if(x===null||(i==="tr"&&ck("itna")))return null;const g=v("age");
+function ab(i,a){const x=vu(i);if(x===null||(i==="tr"&&ck("itna")))return null;const g=v("age");
  switch(i){
- case"es":case"el":case"em":{const k={es:0,el:1,em:2}[i];let t=[6,7,6.5];if(g!==null)t=g<40?[7,10,9]:g<=65?[6,8,7]:[6,7,6.5];return g===null?x<=t[k]:x<t[k]}
+ case"es":case"el":case"em":{if(a!=="ase"&&a!=="htp")return null;const k={es:0,el:1,em:2}[i];let t=[6,7,6.5];if(g!==null)t=g<40?[7,10,9]:g<=65?[6,8,7]:[6,7,6.5];return g===null?x<=t[k]:x<t[k]}
  case"ees":return a=="fa"?x>11:x>=15;
  case"eel":return a=="htp"?x>13:x>=13;
  case"eem":return x>14;
@@ -90,7 +91,7 @@ function ab(i,a){const x=v(i);if(x===null||(i==="tr"&&ck("itna")))return null;co
 function markAb(a){document.querySelectorAll("#fields label[data-a]").forEach(l=>{const n=l.querySelector("input[type=number]");if(n)l.classList.toggle("ab",ab(n.id,a)===true)})}
 
 function eRed(){const a=v("age");let t=[6,7,6.5];if(a!==null)t=a<40?[7,10,9]:a<=65?[6,8,7]:[6,7,6.5];
- const c=(i,h)=>{const x=v(i);return x===null?null:(a===null?x<=h:x<h)};return any([c("es",t[0]),c("el",t[1]),c("em",t[2])])}
+ const c=(i,h)=>{const x=vu(i);return x===null?null:(a===null?x<=h:x<h)};return any([c("es",t[0]),c("el",t[1]),c("em",t[2])])}
 const gl=(ea,st)=>ea===null?O("warn","PAG augmentée","Grade II ou III selon E/A",st,"Renseignez E/A (< 2 : Grade II ; ≥ 2 : Grade III)."):ea<2?O("bad","Grade II","Dysfonction diastolique modérée – PAG augmentée",[...st,"E/A < 2 → Grade II"]):O("bad","Grade III","Dysfonction diastolique sévère – PAG nettement augmentée",[...st,"E/A ≥ 2 → Grade III"]);
 const g1=st=>O("ok","Grade I","Relaxation altérée – PAG normale",[...st,"→ Grade I"],"Si symptomatique : écho d’effort diastolique.");
 const hi=(t,st)=>O("bad",t,"",st), lo=(t,st)=>O("ok",t,"",st), ind=(t,st,x)=>O("warn",t,"",st,x);
@@ -138,6 +139,10 @@ hcm(){return crit([gt("eem",14),ge("ara",30),gt("tr",2.8),gt("lavi",34)],"E/e’
 function crit(c,txt){const s=cnt(c);if(s.p+s.n==0)return null;const st=[`Critères : ${txt}`,`${s.p} positif(s) sur ${s.p+s.n} évalué(s)`];
  return s.p>=1?O("bad","Pression de remplissage élevée probable",`${s.p} critère(s) positif(s)`,st,"Le nombre minimal de critères n’est pas précisé dans les diapositives : à confronter au tableau clinique."):O("ok","Pas de critère de pression élevée","Parmi les critères saisis",st)}
 
+const AUTO={em:()=>{const a=v("es"),b=v("el");return a!==null&&b!==null?(a+b)/2:null},eem:()=>{const e=v("e"),m=v("em");return e!==null&&m!==null&&m>0?e/m:null}};
+function auto(ev){const t=ev&&ev.target;if(t&&AUTO[t.id]){if(t.value==="")delete t.dataset.man;else t.dataset.man="1";delete t.dataset.ex;delete t.dataset.auto}
+ for(const k of["em","eem"]){const el=$(k);if(el.dataset.man)continue;const x=AUTO[k](),d=k==="em"?100:10;
+  if(x===null){el.value="";delete el.dataset.ex;delete el.dataset.auto}else{el.value=String(Math.round(x*d)/d);el.dataset.ex=String(x);el.dataset.auto="1"}}}
 function route(){const o=[];["htx","fa","ms","mr","mac","htp","hcm"].forEach(k=>ck(k)&&o.push(k));if(!o.length)o.push("ase");return o}
 function upd(){const r=route(),sel=$("alg");
  const cur=sel.value;sel.innerHTML=`<option value="auto">Automatique : ${ALG[r[0]]}</option>`+Object.keys(ALG).map(k=>`<option value="${k}">${ALG[k]}</option>`).join("");sel.value=cur&&[...sel.options].some(o=>o.value==cur)?cur:"auto";
@@ -154,6 +159,6 @@ function upd(){const r=route(),sel=$("alg");
  if(ck("itna")&&["ase","fa","htx","hcm"].includes(a))o.st=[...o.st,"IT non mesurable sans signe d’HTP → vitesse IT considérée < 2,8 m/s"];
  res.className="card "+o.cls;
  res.innerHTML=`<div class="hint">${ALG[a]}</div><div class="big">${o.t}</div>`+(o.s?`<div>${o.s}</div>`:"")+(o.x?`<div class="w">${o.x}</div>`:"")+(o.st.length?`<div class="hint" style="margin-top:8px">Cheminement :</div><ol>${o.st.map(s=>`<li>${s}</li>`).join("")}</ol>`:"")}
-function reset(){document.querySelectorAll("input").forEach(i=>i.type=="checkbox"?i.checked=false:i.value="");$("alg").value="auto";upd()}
-document.addEventListener("input",upd);$("alg").addEventListener("change",upd);upd();
+function reset(){document.querySelectorAll("input").forEach(i=>{i.type=="checkbox"?i.checked=false:i.value="";delete i.dataset.man;delete i.dataset.ex;delete i.dataset.auto});$("alg").value="auto";auto();upd()}
+document.addEventListener("input",ev=>{auto(ev);upd()});$("alg").addEventListener("change",upd);auto();upd();
 </script></body></html>
