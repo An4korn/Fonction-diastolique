@@ -17,7 +17,7 @@ main{max-width:780px;margin:0 auto;padding:16px}h1{font-size:20px;margin:4px 0 2
 .g{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:2px 12px}
 .g2{display:grid;grid-template-columns:repeat(auto-fit,minmax(145px,1fr));gap:10px}
 label{display:block;font-size:13px;color:var(--mut)}.c{display:flex;gap:8px;align-items:center;color:var(--tx);font-size:14px;margin:3px 0}
-input[type=number],select{width:100%;margin-top:3px;padding:8px;border:1px solid var(--bd);border-radius:8px;background:var(--bg);color:var(--tx);font-size:16px}
+input[type=text],input[type=number],select{width:100%;margin-top:3px;padding:8px;border:1px solid var(--bd);border-radius:8px;background:var(--bg);color:var(--tx);font-size:16px}
 .w{background:var(--wb);border:1px solid var(--warn);border-radius:8px;padding:7px 10px;margin:6px 0;font-size:13px}
 .tag{display:inline-block;background:var(--bg);border:1px solid var(--bd);border-radius:20px;padding:1px 10px;font-size:12px;margin:2px 4px 0 0}
 #res{border-width:2px}#res.ok{border-color:var(--ok)}#res.warn{border-color:var(--warn)}#res.bad{border-color:var(--bad)}
@@ -31,7 +31,7 @@ input:disabled{opacity:.45}
 :root,:root[data-theme="light"],:root[data-theme="dark"]{color-scheme:dark;--bg:#12161c;--card:#1b222b;--tx:#e8ecf1;--mut:#9aa6b5;--bd:#2f3946;--ac:#7aa2f7;--ok:#4cc38a;--warn:#f0b429;--bad:#ff7b7b;--okb:#183326;--wb:#3a2f12;--bb:#3a1f1f}
 .vb .v{color:#12161c}
 </style></head><body><main>
-<div class="vb" role="note"><span class="v">V2.4</span><span><b>Version de référence du 25/11/2026</b> · Auteur : Thomas Charlier</span></div>
+<div class="vb" role="note"><span class="v">V2.5</span><span><b>Version de référence du 25/11/2026</b> · Auteur : Thomas Charlier</span></div>
 <h1>Fonction diastolique du VG</h1>
 <p class="sub">Sélecteur d’algorithmes selon le contexte (ASE/EACVI – ASE – BSE)</p>
 
@@ -51,10 +51,10 @@ input:disabled{opacity:.45}
 <div class="card" id="res"><div class="hint">Saisissez les données.</div></div>
 <button onclick="reset()">Réinitialiser</button>
 <p class="disc">Aide à l’interprétation à confronter au contexte clinique ; elle ne remplace pas le jugement du médecin.</p>
-<p class="disc" style="text-align:center">Créé par Thomas Charlier · Version V2.4 · 25/11/2026</p>
+<p class="disc" style="text-align:center">Créé par Thomas Charlier · Version V2.5 · 25/11/2026</p>
 </main>
 <script>
-const $=i=>document.getElementById(i),v=i=>{if(i==="tr"&&$("itna")&&$("itna").checked)return 2.7;const el=$(i),x=el.dataset.ex!==undefined?el.dataset.ex:el.value;return x===""?null:+x},ck=i=>$(i).checked;
+const $=i=>document.getElementById(i),v=i=>{if(i==="tr"&&$("itna")&&$("itna").checked)return 2.7;const el=$(i),x=(el.dataset.ex!==undefined?el.dataset.ex:el.value).trim().replace(",",".");return x===""||isNaN(+x)?null:+x},ck=i=>$(i).checked;
 const vu=i=>i==="em"&&$(i).dataset.auto?null:v(i);
 const cmp=f=>(i,t)=>{const x=v(i);return x===null?null:f(x,t)};
 const lt=cmp((x,t)=>x<t),le=cmp((x,t)=>x<=t),gt=cmp((x,t)=>x>t),ge=cmp((x,t)=>x>=t);
@@ -68,7 +68,7 @@ const WARN={bbg:"BBG / stimulation / CRT : e’ septal et E/e’ moins fiables (
 const F=[["age","Âge (ans)","ase htp"],["es","e’ septal (cm/s)","ase htp htx mr hcm fa"],["el","e’ latéral (cm/s)","ase htp htx mr hcm"],["em","e’ moyen (cm/s)","ase htp htx mr hcm"],["e","Onde E (cm/s)","htx mr hcm fa htp"],["ees","E/e’ septal","ase fa htx mr hcm"],["eel","E/e’ latéral","ase htp htx mr hcm"],["eem","E/e’ moyen","ase htx mr hcm"],["ea","E/A","ase htp mac"],["dt","TD onde E (ms)","fa"],["tr","Vitesse IT (m/s)","ase fa htx hcm"],["pasp","PAPS (mmHg)","ase fa"],["ivrt","IVRT (ms)","ase mac ms mr"],["sd","VP S/D","ase fa"],["lars","LARS (%)","ase htp fa"],["lavi","LAVi (mL/m²)","ase hcm"],["bmi","IMC (kg/m²)","fa"],["srivr","E/SRivr (cm)","htx"],["apk","Vitesse A mitrale (m/s)","ms"],["rt","IVRT / TE-e’","ms mr"],["ara","Ar – A (ms)","mr hcm"]];
 $("ctx").innerHTML=CTX.map(c=>`<label class="c"><input type="checkbox" id="${c[0]}"> ${c[1]}</label>`).join("");
 $("mod").innerHTML=MOD.map(c=>`<label class="c"><input type="checkbox" id="${c[0]}"> ${c[1]}</label>`).join("");
-$("fields").innerHTML=F.map(f=>`<label data-a="${f[2]}">${f[1]}<input type="number" step="any" id="${f[0]}" inputmode="decimal"></label>`+(f[0]=="tr"?`<label class="c" data-a="ase fa htx hcm" style="grid-column:1/-1"><input type="checkbox" id="itna"> IT non mesurable, sans signe d’HTP → vitesse IT considérée < 2,8 m/s</label>`:"")).join("");
+$("fields").innerHTML=F.map(f=>`<label data-a="${f[2]}">${f[1]}<input type="text" autocomplete="off" id="${f[0]}" inputmode="decimal"></label>`+(f[0]=="tr"?`<label class="c" data-a="ase fa htx hcm" style="grid-column:1/-1"><input type="checkbox" id="itna"> IT non mesurable, sans signe d’HTP → vitesse IT considérée < 2,8 m/s</label>`:"")).join("");
 function ab(i,a){const x=vu(i);if(x===null||(i==="tr"&&ck("itna")))return null;const g=v("age");
  switch(i){
  case"es":case"el":case"em":{if(a!=="ase"&&a!=="htp")return null;const k={es:0,el:1,em:2}[i];let t=[6,7,6.5];if(g!==null)t=g<40?[7,10,9]:g<=65?[6,8,7]:[6,7,6.5];return g===null?x<=t[k]:x<t[k]}
@@ -148,7 +148,7 @@ eel:()=>{const e=eV(),m=v("el");return e!==null&&m!==null&&m>0?e/m:null},
 eem:()=>{const a=v("ees"),b=v("eel");if(a!==null&&b!==null)return(a+b)/2;const e=eV(),m=v("em");return e!==null&&m!==null&&m>0?e/m:null}};
 function auto(ev){const t=ev&&ev.target;if(t&&AUTO[t.id]){if(t.value==="")delete t.dataset.man;else t.dataset.man="1";delete t.dataset.ex;delete t.dataset.auto}
  for(const k of["em","ees","eel","eem"]){const el=$(k);if(el.dataset.man)continue;const x=AUTO[k](),d=k==="em"?100:10;
-  if(x===null){el.value="";delete el.dataset.ex;delete el.dataset.auto}else{el.value=String(Math.round(x*d)/d);el.dataset.ex=String(x);el.dataset.auto="1"}}}
+  if(x===null){el.value="";delete el.dataset.ex;delete el.dataset.auto}else{el.value=String(Math.round(x*d)/d).replace(".",",");el.dataset.ex=String(x);el.dataset.auto="1"}}}
 function route(){const o=[];["htx","fa","ms","mr","mac","htp","hcm"].forEach(k=>ck(k)&&o.push(k));if(!o.length)o.push("ase");return o}
 function upd(){const r=route(),sel=$("alg");
  const cur=sel.value;sel.innerHTML=`<option value="auto">Automatique : ${ALG[r[0]]}</option>`+Object.keys(ALG).map(k=>`<option value="${k}">${ALG[k]}</option>`).join("");sel.value=cur&&[...sel.options].some(o=>o.value==cur)?cur:"auto";
