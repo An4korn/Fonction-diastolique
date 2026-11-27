@@ -66,7 +66,7 @@ button{margin:4px 0}
 #suppd{margin:10px 0 0}#suppd .g2{margin-top:8px}
 button,.chip,summary{touch-action:manipulation}
 </style></head><body><main>
-<div class="vb" role="note"><span class="v">V4.0</span><span><b>Version de référence du 25/11/2026</b> · Auteur : Thomas Charlier · Revue prévue : 06/2027</span></div>
+<div class="vb" role="note"><span class="v">V4.1</span><span><b>Version de référence du 27/11/2026</b> · Auteur : Thomas Charlier · Revue prévue : 06/2027</span></div>
 <h1>Fonction diastolique du VG</h1>
 <p class="sub">Sélecteur d’algorithmes selon le contexte (ASE 2025)</p>
 <div class="sum" id="sum"><div id="sumi"><b>Saisissez les données</b></div><button type="button" class="mini" data-cp onclick="copyReport()" aria-label="Copier le compte rendu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="8" y="3" width="8" height="4" rx="1"/><path d="M16 5h2a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h2"/></svg>Copier</button></div>
@@ -93,15 +93,17 @@ button,.chip,summary{touch-action:manipulation}
 <p class="disc">Aide à l’interprétation à confronter au contexte clinique ; elle ne remplace pas le jugement du médecin.</p>
 <details><summary>Référence et limites d’utilisation</summary><p class="disc"><b>Référence :</b> Nagueh SF, Sanborn DY, Oh JK, et al. Recommendations for the Evaluation of Left Ventricular Diastolic Function by Echocardiography and for Heart Failure With Preserved Ejection Fraction Diagnosis: An Update From the American Society of Echocardiography. J Am Soc Echocardiogr 2025;38(7):537-569. doi:10.1016/j.echo.2025.03.011.</p>
 <p class="disc">Selon l’ASE 2025, ces recommandations ne s’appliquent pas chez l’enfant, la femme enceinte (grossesse normale) ni en peropératoire. LAVi à interpréter après exclusion d’une dilatation de l’OG liée au sport, à une anémie, à une FA ou un flutter, ou à une valvulopathie mitrale. L’indice de masse VG (> 95 g/m² chez la femme, > 115 g/m² chez l’homme) n’est pas pris en compte dans cet outil.</p>
+<p class="disc"><b>Statistiques d’usage :</b> la page utilise GoatCounter, un compteur anonyme sans cookie, qui enregistre uniquement le nombre de visites et de copies du compte rendu. Aucune valeur saisie, aucune donnée patient n’est transmise : tous les calculs se font dans votre navigateur.</p>
 </details>
 <details><summary>Historique des versions</summary><div class="disc">
+<b>V4.1</b> — Compteur de visites anonyme (GoatCounter) et comptage des copies du compte rendu.<br>
 <b>V4.0</b> — Dysfonction diastolique selon la Figure 2 ; paramètres supplémentaires (PR télédiastolique, PA diastolique, onde L, Valsalva) ; signalement des résultats divergents ; contexte « postopératoire immédiat » retiré (hors ASE).<br>
 <b>V3.6 à V3.8</b> — Un résultat par algorithme si plusieurs contextes ; bouton « Copier le compte rendu » (type de fonction diastolique et pression dans l’OG).<br>
 <b>V3.1 à V3.5</b> — Constriction vs restriction (Figure 7) ; nouvelle mise en page (pastilles, bandeau de résultat) ; TAVI et pontages retirés (hors ASE).<br>
 <b>V2.1 à V3.0</b> — Calculs automatiques (e’ moyen, E/e’), virgule décimale, mode sombre, chirurgie mitrale / TEER, LVAD, restrictive ; alignement sur l’ASE 2025 (E/e’ moyen = E / e’ moyen).<br>
 <b>V2</b> — Fichier d’origine.<br>
 Prochaine revue : juin 2027, ou dès la publication d’une mise à jour de l’ASE.</div></details>
-<p class="disc" style="text-align:center">Créé par Thomas Charlier · Version V4.0 · 25/11/2026</p>
+<p class="disc" style="text-align:center">Créé par Thomas Charlier · Version V4.1 · 27/11/2026</p>
 </main>
 <script>
 const $=i=>document.getElementById(i),v=i=>{if(i==="tr"&&$("itna")&&$("itna").checked)return 2.7;const el=$(i),x=(el.dataset.ex!==undefined?el.dataset.ex:el.value).trim().replace(",",".");return x===""||isNaN(+x)?null:+x},ck=i=>$(i).checked;
@@ -279,7 +281,8 @@ function reportText(){const it=LAST.out.map(({a,o})=>({a,...dx(a,o)}));
  return L.join("\\n")}
 function flash(ok){document.querySelectorAll("[data-cp]").forEach(b=>{if(!b._h)b._h=b.innerHTML;b.innerHTML=ok?"✓ Copié":"Copie impossible";b.classList.toggle("done",ok);clearTimeout(b._t);b._t=setTimeout(()=>{b.innerHTML=b._h;b.classList.remove("done")},2200)});
  $("cpmsg").textContent=ok?"Compte rendu copié dans le presse-papiers.":"Copie automatique impossible ici : sélectionnez le texte de l’aperçu ci-dessous et copiez-le."}
-async function copyReport(){const t=reportText();$("rep").value=t;let ok=false;
+function gc(p,t){try{window.goatcounter&&window.goatcounter.count&&window.goatcounter.count({path:p,title:t,event:true})}catch(e){}}
+async function copyReport(){gc("copie-compte-rendu","Copie du compte rendu");const t=reportText();$("rep").value=t;let ok=false;
  try{await navigator.clipboard.writeText(t);ok=true}catch(e){try{const x=document.createElement("textarea");x.value=t;x.setAttribute("readonly","");x.style.cssText="position:fixed;left:-9999px;top:0;font-size:16px";document.body.appendChild(x);x.select();x.setSelectionRange(0,t.length);ok=document.execCommand("copy");x.remove()}catch(e2){}}
  flash(ok);if(!ok){$("prev").open=true;setTimeout(()=>{$("rep").focus();$("rep").select()},60)}}
 function upd(){document.querySelectorAll(".chip").forEach(l=>l.classList.toggle("on",l.firstElementChild.checked));const r=route();
@@ -297,4 +300,6 @@ function upd(){document.querySelectorAll(".chip").forEach(l=>l.classList.toggle(
  $("rep").value=reportText()}
 function reset(){document.querySelectorAll("input").forEach(i=>{i.type=="checkbox"?i.checked=false:i.value="";delete i.dataset.man;delete i.dataset.ex;delete i.dataset.auto});document.querySelectorAll("#fields select").forEach(i=>i.value="");$("suppd").open=false;auto();upd()}
 document.addEventListener("input",ev=>{auto(ev);upd()});document.addEventListener("change",ev=>{if(ev.target.tagName==="SELECT")upd()});auto();upd();
-</script></body></html>
+</script>
+<script data-goatcounter="https://anakorn.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
+</body></html>
